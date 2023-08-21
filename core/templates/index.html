@@ -1,0 +1,53 @@
+{% load bootstrap4 %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>index</title>
+    {% bootstrap_css %}
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <center><h1>Produto</h1></center>
+
+        <table class="table table-dark">
+            <thead>
+                <tr>
+                    <th scope="col"> # </th>
+                    <th scope="col"> Produto </th>
+                    <th scope="col"> Preço </th>
+                    <th scope="col"> Estoque </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for Produto in Produtos %}
+                    <tr >
+                        <td scope="row">{{ Produto.id}}</td>
+                        <td scope="row"><a href="#modal{{Produto.id}}" data-toggle="modal"> {{ Produto.nome}}</a></td>
+                        <td scope="row">{{ Produto.preco}}</td>
+                        <td scope="row">{{ Produto.estoque}}</td>
+                    </tr>
+                    <div class="modal fade bd-example-modal-lg show" id="modal{{ Produto.id }}" role="dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body" id="dynamic-content">
+                                    <img src="{{ Produto.imagem.url }}"  alt="{{ Produto.nome }}" class="img-fluid">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+{%bootstrap_javascript jquery='full'%}
+</body>
+</html>
